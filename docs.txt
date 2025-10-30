@@ -166,6 +166,32 @@ setCount -> Function to change state.
 ‼️ Note:
 We can only change state using the setCount()
 
+⭐️ useEffect
+useEffect is a React Hook that lets you run side effects in your function components.(like fetching data, logging after component renders)
+
+useEffect(() => {
+  // code that runs after render
+}, [dependencies]);
+
+# Usage :
+
+1. Runs on every component render :
+useEffect(() => {
+  // code that runs after render
+});                                           // There is no dependency
+
+
+2. Runs only once render, after the first render, and never again :
+useEffect(() => {
+  // code that runs after render
+}, []);                                       // Keep dependency empty
+
+
+3. Runs on initial render and when change in dependency
+useEffect(() => {
+  // code that runs after render
+}, [dependency1, dependency2]);
+
 ⭐️ props
 Props (short for "properties") are how you send data from one component to another in React — usually from parent to child.
 
@@ -258,31 +284,7 @@ Recalculates when?	          Dependencies change	          Dependencies change	 
 Re-renders on change?	        ❌ No	                        ❌ No	                                    ❌ No
 Common use case	              Heavy computation	            Stable function for child props	            DOM refs, timers, flags, etc.
 
-⭐️ useEffect
-useEffect is a React Hook that lets you run side effects in your function components.(like fetching data, logging after component renders)
 
-useEffect(() => {
-  // code that runs after render
-}, [dependencies]);
-
-# Usage :
-
-1. Runs on every component render :
-useEffect(() => {
-  // code that runs after render
-});                                           // There is no dependency
-
-
-2. Runs only once render, after the first render, and never again :
-useEffect(() => {
-  // code that runs after render
-}, []);                                       // Keep dependency empty
-
-
-3. Runs on initial render and when change in dependency
-useEffect(() => {
-  // code that runs after render
-}, [dependency1, dependency2]);
 
 ⭐️ useId() [Hook]
 It is a hook that generates a unique ID that stays the same across renders.
@@ -295,7 +297,7 @@ const id = useId();
 
 ‼️NOte:
 Don’t use useId for keys in lists
-You get one unique value every time the component is mounted.
+You get only one unique value every time the component is mounted.
 
 ⭐️ custom hooks
 A custom hook is just a function in React that uses other React hooks (like useState, useEffect, etc.) and starts with the word use.
@@ -427,7 +429,7 @@ A loader is a function you attach to a route in React Router that:
 Runs before the component renders.
 Can fetch data, perform calculations, or do any async task.
 Provides its result to the component via useLoaderData() hook.
-We dont have to use useEffect and useState to call api
+We dont have to use useEffect and useState to call api.
 
 # Example :
 S1. Define Loader Function (In github.jsx <In Same Component but outside the component function>)
@@ -580,37 +582,6 @@ function Home() {
     </div>
   );
 }
-
-⭐️ forwardRef()
-forwardRef() allows you to pass a ref through parent-component to child-component
-❌ If you try to attach a ref directly to a custom component, it doesn’t work
-
-(Parent)
-
-import React, { useRef } from "react";
-
-function Parent() {
-  const inputRef = useRef();
-
-  const focusInput = () => {
-    inputRef.current.focus();
-  };
-
-  return (
-    <div>
-      <CustomInput ref={inputRef} placeholder="Type something..." />
-      <button onClick={focusInput}>Focus Input</button>
-    </div>
-  );
-}
-
-(Child)
-
-import React, { forwardRef } from "react";
-
-const CustomInput = forwardRef((props, ref) => {
-  return <input ref={ref} {...props} />;
-});
 
 ⭐️ React Hook Form
 React Hook Form is a library that helps you build and manage forms in React
